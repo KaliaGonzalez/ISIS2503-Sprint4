@@ -1,31 +1,44 @@
 _format_version: "2.1"
 
 services:
-  - name: variables_service
-    host: variables_upstream
+  - name: usuarios_service
+    host: usuarios_upstream
     protocol: http
     routes:
-      - name: variables
+      - name: usuarios
         paths:
           - /variables
         strip_path: false
 
-  - name: measurements_service
-    host: measurements_upstream
+  - name: reportes_service
+    host: reportes_upstream
     protocol: http
     routes:
-      - name: measurements
+      - name: reportes
         paths:
           - /measurements
         strip_path: false
-    
+
+  - name: logs_service
+    host: logs_upstream
+    protocol: http
+    routes:
+      - name: logs
+        paths:
+          - /measurements
+        strip_path: false
+
 upstreams:
-  - name: variables_upstream
+  - name: usuarios_upstream
     targets:
       - target: 10.128.0.84:8080
         weight: 100
 
-  - name: measurements_upstream
+  - name: reportes_upstream
     targets:
       - target: 10.128.0.85:8080
+        weight: 100
+  - name: logs_upstream
+    targets:
+      - target: 10.128.0.86:8080
         weight: 100
